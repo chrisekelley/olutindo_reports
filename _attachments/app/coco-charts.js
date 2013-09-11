@@ -212,17 +212,18 @@ function resolvedCasesByDepartment() {
 //					console.log("values: " + JSON.stringify(values));
 //					console.log("indices: " + JSON.stringify(indices));
 
+          // transform(80,15) sets the start of the bars to be at 80 pb to the right to the window.
           var chart = d3.select("#chart3")
               .append("svg:svg")
               .attr("class", "chart")
-              .attr("width", 420)
+              .attr("width", 700)
               .attr("height", 25 * values.length)
               .append("svg:g")
-              .attr("transform", "translate(10,15)");
+              .attr("transform", "translate(80,15)");
 
           var x = d3.scale.linear()
               .domain([0, d3.max(values)])
-              .range([0, 420]);
+              .range([0, 600]);
 
 //					var y = d3.scale.ordinal()
 //					.domain(labels)
@@ -247,41 +248,44 @@ function resolvedCasesByDepartment() {
               .attr("y2", 480)
               .attr("stroke", "#ccc");
 
-//          chart.selectAll("text")
-//              .data(values)
-//              .enter().append("svg:text")
-//              .attr("x", x)
-//            //.attr("y", function(d) { return y(d) + y.rangeBand() / 2; })
-//              .attr("y", function(d, i) { return i * 20; })
-//              .attr("dx", -40) // padding-right
-//              .attr("dy", ".95em") // vertical-align: middle
-//              .attr("text-anchor", "end") // text-align: right
-//              .text(String);
+          // Displays the values
+          chart.selectAll("text")
+              .data(values)
+              .enter().append("svg:text")
+              .attr("x", x)
+            //.attr("y", function(d) { return y(d) + y.rangeBand() / 2; })
+              .attr("y", function(d, i) { return i * 20; })
+              .attr("dx", -10) // padding-right
+              .attr("dy", ".99em") // vertical-align: middle
+              .attr("text-anchor", "end") // text-align: right
+              .text(String);
 
+          // displays the date
           chart.selectAll("label")
               .data(labels)
               .enter().append("svg:text")
               .attr("x", x)
             //.attr("y", function(d) { return y(d) + y.rangeBand() / 2; })
               .attr("y", function(d, i) { return i * 20; })
-              .attr("dx", 5) // padding-right
+              .attr("dx", -60) // padding-right
               .attr("dy", ".99em") // vertical-align: middle
               .attr("text-anchor", "start") // text-align: right
               .text(String);
 
+          // displays the department
           chart.selectAll("label")
               .data(departmentNames)
               .enter().append("svg:text")
               .attr("x", x)
             //.attr("y", function(d) { return y(d) + y.rangeBand() / 2; })
               .attr("y", function(d, i) { return i * 20; })
-              .attr("dx", 70) // padding-right
+              .attr("dx", 3) // padding-right
               .attr("dy", ".99em") // vertical-align: middle
               .attr("text-anchor", "start") // text-align: right
               .text(String);
 
           chart.selectAll("text.rule")
-              .data(x.ticks(5))
+              .data(x.ticks(10))
               .enter().append("svg:text")
               .attr("class", "rule")
               .attr("x", x)
