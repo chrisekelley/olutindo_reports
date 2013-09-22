@@ -86,8 +86,9 @@ var AppRouter = Backbone.Router.extend({
         	"arrestDocket/:query":  		"arrestDocket",    	// #arrestDocket
         	"problem/:query":       		"problem",    		// #arrestDocket
           "incidentRecords/incident/:incidentId":					"incidentRecords",  // #incidentRecords
-          "edit/:recordId":          		"edit",    			// #edit
-        	"record/:recordId":        		"record",    		// #record
+          //"edit/:recordId":          		"edit",    			// #edit
+          "edit/incident/:recordId":          						"edit",    			// #edit
+          "record/:recordId":        		"record",    		// #record
         	"renderForm/:formId/:parentId":	"renderForm",    	// #renderForm
             "destroy/:recordId": 			"destroy",    		// #destroy
             "design": 						"design",    		// #design
@@ -412,7 +413,7 @@ var AppRouter = Backbone.Router.extend({
         		viewDiv.setAttribute("id", "formRenderingView");
         		$("#views").append(viewDiv);
         	}
-        	var record = new Record({_id: recordId});
+        	var record = new Record({_id: "incident/"+ recordId});
         	record.fetch( {
         		success: function(model){
         			var parentId = record.get("parentId");
